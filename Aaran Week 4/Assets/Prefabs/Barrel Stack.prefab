@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 344637017998908400}
   m_Layer: 0
   m_Name: Barrel Stack
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 659f32e3bcfdd4241ac077d6ca544332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 8
 --- !u!1 &4033812947075289474
 GameObject:
   m_ObjectHideFlags: 0
