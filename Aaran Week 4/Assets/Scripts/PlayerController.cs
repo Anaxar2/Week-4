@@ -55,28 +55,39 @@ public class PlayerController : MonoBehaviour
             isOnGround = false; // checks if isOnGround is false.
             jumpsLeft--;
             playerAnim.SetTrigger("Jump_trig"); // triggers jump animation.
+            playerAnim.SetBool("Grounded", false); //setting Grounded to false.
             dirt.Stop();// stop dirt partlice effect playing when jumping.
             int RandomJumpSounds = Random.Range(0, jumpSounds.Length);
             _as.PlayOneShot(jumpSounds[RandomJumpSounds], 1.0f);
         }
-
-        if (Input.GetKey(KeyCode.RightArrow) && isOnGround == false) //Flip Mechanic Rotates on z axis.
+        if (Input.GetKey(KeyCode.RightArrow) && isOnGround == false) // Trigers Frontflip Mechanic on key hold.
         {
-         transform.Rotate(Vector3.back * RotationSpeed * Time.deltaTime, Space.World);
+            transform.Rotate(Vector3.back * RotationSpeed * Time.deltaTime, Space.World); //Frontflip Mechanic Rotates on z axis.
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow) && isOnGround == false) //Flip Mechanic Rotates on y axis.
+        if (Input.GetKey(KeyCode.LeftArrow) && isOnGround == false) //Triggers Backflip Mechanic on key press.
         {
-            transform.Rotate(Vector3.down * RotationSpeed * Time.deltaTime, Space.World);
+            transform.Rotate(Vector3.forward * RotationSpeed * Time.deltaTime, Space.World); //Backflip Mechanic Rotates on z axis
+        }
+
+        if (Input.GetKey(KeyCode.UpArrow) && isOnGround == false) //Trigers rotation on the Y axis with key hold.
+        {
+            transform.Rotate(Vector3.down * RotationSpeed * Time.deltaTime, Space.World); //Midair Rotation Mechanic on Y axis.(LEFT)
+        }
+
+        if (Input.GetKey(KeyCode.DownArrow) && isOnGround == false) // Triggers rotation on the Y axis with key hold.
+        {
+            transform.Rotate(Vector3.up * RotationSpeed * Time.deltaTime, Space.World); //Midair Rotation Mechanic on Y axis. (RIGHT)
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground")) // checking if object being collided isOnGround.
         {
-            isOnGround = true;
+            isOnGround = true; // se
             jumpsLeft = 2;
             dirt.Play();
+            playerAnim.SetBool("Grounded", true); // setting Grounded to true.
         }
         else if (collision.gameObject.CompareTag("Obstacle"))
         {
