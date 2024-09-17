@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     private Animator playerAnim;
     public GameManager gm;
-    public float Speed;
 
     [Header ("Jump")]
     public float jumpForce = 5;
@@ -53,7 +52,7 @@ public class PlayerController : MonoBehaviour
         if (gm.timer < 0)
         {
             gameOver = true;
-            Debug.Log("Game Over!");
+            Debug.Log("Time Ran Out");
         }
     }
     private void Jump()
@@ -125,7 +124,7 @@ public class PlayerController : MonoBehaviour
             dirt.Stop();                                                 // Stops dirt particle effect when hitting Obstacle.
             playerAnim.SetBool("Death_b", true);                         // Sets death is true.
             playerAnim.SetInteger("DeathType_int", 1);                   // Plays Death animation.
-            gm.gameOverText.gameObject.SetActive(true);                  // Game Over UI is Set
+            gm.gameOver.gameObject.SetActive(true);                      // Game Over UI is Set
         }
     }
 }
