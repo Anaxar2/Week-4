@@ -31,7 +31,7 @@ public class MoveLeft : MonoBehaviour
 
         if (PlayerController.gameOver == false)
         {
-           transform.Translate(Vector3.left * currentSpeed * Time.deltaTime);
+           transform.Translate(currentSpeed * Time.deltaTime * Vector3.left);
         }
 
         if(transform.position.x < leftBound && gameObject.CompareTag("Obstacle"))
@@ -39,5 +39,4 @@ public class MoveLeft : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 }

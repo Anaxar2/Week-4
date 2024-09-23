@@ -48,12 +48,6 @@ public class PlayerController : MonoBehaviour
         Backflip();
         LeftSpin();
         RightSpin();
-
-        if (gm.timer < 0)
-        {
-            gameOver = true;
-            Debug.Log("Time Ran Out");
-        }
     }
     private void Jump()
     {

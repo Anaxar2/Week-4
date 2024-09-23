@@ -14,13 +14,13 @@ public class GameManager : MonoBehaviour
     [Header("Timer")]
     public int timer;
     public TextMeshProUGUI timerText;
+    public float currentTime = 0;
 
     [Header("Game Over")]
     public GameObject gameOver;
     public Button restartButton;
     public Button quitButton;
 
-    public float currentTime = 0;
     // Start is called before the first frame update
    /* void Start()
     {
@@ -34,8 +34,12 @@ public class GameManager : MonoBehaviour
 
     public void Timer()
     {
-        if (currentTime == 0) currentTime += Time.deltaTime;
         timerText.text = "Time:" + Mathf.RoundToInt(currentTime).ToString();
+
+        if (timer == 0)
+        {
+            currentTime += Time.deltaTime;
+        }
     }
     public void RestartGame()
     {
