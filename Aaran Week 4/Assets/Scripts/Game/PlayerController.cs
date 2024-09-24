@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEditor.Rendering;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [Header ("General")]
-    Rigidbody rb;
+    private Rigidbody rb;
     private Animator playerAnim;
     public GameManager gm;
 
@@ -24,12 +25,9 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem dirt;
 
     [Header("Audio")]
-    public AudioClip[] jumpSounds;
+    public AudioClip jumpSound;
     public AudioClip[] crashSounds;
     private AudioSource _as;
-
-    [Header("Game Over")]
-    public bool gameOver;
 
     // Start is called before the first frame update
     void Start()
@@ -51,7 +49,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0 && gameOver == false)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpsLeft > 0 && gm.gameOver == false)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);     // Jump Mechanic.
             isOnGround = false;                                         // Checks if isOnGround is false.
@@ -59,8 +57,7 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetTrigger("Jump_trig");                         // Triggers jump animation.
             playerAnim.SetBool("Grounded", false);                      // Setting the Grounded animation to false.
             dirt.Stop();                                                // Stop dirt partlice effect playing when jumping.
-            int RandomJumpSounds = Random.Range(0, jumpSounds.Length);  // Array of lenth x Jump sounds.
-            _as.PlayOneShot(jumpSounds[RandomJumpSounds], 1.0f);        // Plays a Random jump sound from the array. 
+            _as.PlayOneShot(jumpSound, 1.0f);                           // Plays a Random jump sound from the array. 
         }
     }
     private void Frontflip()
@@ -114,11 +111,12 @@ public class PlayerController : MonoBehaviour
         else if (gm.healthPoints == 0)                                   // If health equals 0. Run code below.
         {
             Debug.Log("Game Over!");                                     // Logs Game over.
-            gameOver = true;                                             // Checks if Game Over is true.
+            gm.gameOver = true;                                          // Checks if Game Over is true.
             dirt.Stop();                                                 // Stops dirt particle effect when hitting Obstacle.
             playerAnim.SetBool("Death_b", true);                         // Sets death is true.
             playerAnim.SetInteger("DeathType_int", 1);                   // Plays Death animation.
-            gm.gameOver.gameObject.SetActive(true);                      // Game Over UI is Set
+            gm.gameOverPanel.gameObject.SetActive(true);                 // Game Over UI is Set.
+            Physics.gravity /= gravityModifier;                          // 
         }
     }
 }

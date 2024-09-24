@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class GameManager : MonoBehaviour
     public float currentTime = 0;
 
     [Header("Game Over")]
-    public GameObject gameOver;
+    public bool gameOver;
+    public GameObject gameOverPanel;
     public Button restartButton;
     public Button quitButton;
 
@@ -34,9 +36,9 @@ public class GameManager : MonoBehaviour
 
     public void Timer()
     {
-        timerText.text = "Time:" + Mathf.RoundToInt(currentTime).ToString();
+        timerText.text = "Time:" + Mathf.FloorToInt(currentTime).ToString();
 
-        if (timer == 0)
+        if (timer == 0 && gameOver == false)
         {
             currentTime += Time.deltaTime;
         }
