@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        Physics.gravity *= gravityModifier;
+        Physics.gravity *= gravityModifier;  // Physics.gravity = Physics.gravity times gravityModifier
         playerAnim = GetComponent<Animator>();
         _as = GetComponent<AudioSource>();
     }
@@ -101,8 +101,6 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Obstacle"))                 // Checks collisions with obstacles
         {
             gm.healthPoints -= 1;                                        // Reduces health by 1 when hit by obstacle.
-            Debug.Log("Hit");
-
             explosion.Play();                                            // Plays explosion particle effect when hitting Obstacle.
             dirt.Stop();                                                 // Stops dirt particle effect when hitting Obstacle.
             int RandomCrashSounds = Random.Range(0, crashSounds.Length); // Array of lenth x Crash sounds.
@@ -110,7 +108,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (gm.healthPoints == 0)                                   // If health equals 0. Run code below.
         {
-            Debug.Log("Game Over!");                                     // Logs Game over.
             gm.gameOver = true;                                          // Checks if Game Over is true.
             dirt.Stop();                                                 // Stops dirt particle effect when hitting Obstacle.
             playerAnim.SetBool("Death_b", true);                         // Sets death is true.

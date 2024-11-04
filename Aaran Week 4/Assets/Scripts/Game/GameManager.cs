@@ -5,6 +5,9 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class GameManager : MonoBehaviour
 {
@@ -23,11 +26,6 @@ public class GameManager : MonoBehaviour
     public Button restartButton;
     public Button quitButton;
 
-    // Start is called before the first frame update
-   /* void Start()
-    {
-
-    }*/
     void Update()                  // Update is called once per frame
     {
         Timer();
@@ -50,7 +48,10 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
 #if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#else
         Application.Quit();
     }
-}
 #endif
+    }
+}

@@ -581,6 +581,8 @@ MonoBehaviour:
   - {fileID: 444125333611309823, guid: 13be7dc5322c96341a7bb00ad54821bc, type: 3}
   - {fileID: 2294599050131355481, guid: 960be32d66ae99f44a7053b245be84bc, type: 3}
   spawnPosition: {x: 25, y: 0, z: 0}
+  startDelay: 1
+  repeatRate: 2
 --- !u!4 &600518816
 Transform:
   m_ObjectHideFlags: 0
@@ -610,6 +612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   boostSpeed: 16
+  leftBound: -10
 --- !u!1 &654442317
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   boostSpeed: 12
+  leftBound: -10
 --- !u!114 &835818923
 MonoBehaviour:
   m_ObjectHideFlags: 0
