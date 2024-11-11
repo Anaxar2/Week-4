@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     [Header("Health")]
     public int healthPoints;
     public TextMeshProUGUI healthText;
+    [SerializeField] Image totalHealthBar;
+    [SerializeField] Image currentHealthBar;
 
     [Header("Timer")]
     public int timer;
@@ -26,15 +28,22 @@ public class GameManager : MonoBehaviour
     public Button restartButton;
     public Button quitButton;
 
+    private void Start()
+    {
+        totalHealthBar.fillAmount = healthPoints / 10;
+    }
+
     void Update()                  // Update is called once per frame
     {
         Timer();
-        healthText.text = "Health:" + healthPoints.ToString();
+        currentHealthBar.fillAmount =healthPoints / 10;
+        //healthText.text = "Health:" + healthPoints.ToString();
     }
-
     public void Timer()
     {
-        timerText.text = "Time:" + Mathf.FloorToInt(currentTime).ToString();
+        int minutes = Mathf.FloorToInt(currentTime / 60);
+        int seconds = Mathf.FloorToInt(currentTime - minutes * 60);
+        timerText.text = string.Format("Time: {0:00}:{1:00}", minutes, seconds);
 
         if (timer == 0 && gameOver == false)
         {

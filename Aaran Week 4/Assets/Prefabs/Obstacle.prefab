@@ -180,3 +180,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   boostSpeed: 12
+  leftBound: -5

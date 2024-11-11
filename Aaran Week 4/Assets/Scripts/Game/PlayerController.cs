@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
             _as.PlayOneShot(jumpSound, 1.0f);                           // Plays a Random jump sound from the array. 
         }
     }
-    private void Frontflip()
+    private void Frontflip() 
     {
         if (Input.GetKey(KeyCode.RightArrow) && isOnGround == false)                         // Trigers Frontflip Mechanic on key hold.
         {
@@ -88,6 +88,15 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(RotationSpeed * Time.deltaTime * Vector3.up, Space.World);      // Midair Rotation Mechanic on Y axis. (RIGHT)
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Ring"))
+        {
+            Destroy(other.gameObject);
+            //_as.PlayOneShot(somesound, 1.0f);
+            // increase a number by 1
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))                   // Checking if object being collided isOnGround.
@@ -97,7 +106,6 @@ public class PlayerController : MonoBehaviour
             dirt.Play();                                                 // Plays dirt particle effect.
             playerAnim.SetBool("Grounded", true);                        // Sets Grounded Animation to true.
         }
-
         if (collision.gameObject.CompareTag("Obstacle"))                 // Checks collisions with obstacles
         {
             gm.healthPoints -= 1;                                        // Reduces health by 1 when hit by obstacle.
