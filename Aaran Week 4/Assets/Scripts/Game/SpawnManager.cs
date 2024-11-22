@@ -18,14 +18,15 @@ public class SpawnManager : MonoBehaviour
     [Header("Player")]
     private PlayerController playerController;
 
+    private GameManager gm;
+
     // Start is called before the first frame update
     void Start()
     {
         InvokeRepeating(nameof(SpawnObstacles), startDelay, repeatRate);
-
         InvokeRepeating(nameof(SpawnRings), startDelay, repeatRate);
-
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        gm = FindAnyObjectByType<GameManager>();
     }
     private void SpawnObstacles()
     {

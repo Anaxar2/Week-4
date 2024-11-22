@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2846391977242657815
+--- !u!1 &4384725237226173557
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5562527326212211998}
-  - component: {fileID: 1206835993508451917}
-  - component: {fileID: 8853145110968953442}
-  - component: {fileID: 6975672405506226994}
-  - component: {fileID: 609676407344231264}
-  - component: {fileID: 7892422367238497293}
+  - component: {fileID: 7973669171405975254}
+  - component: {fileID: 533693159348956765}
+  - component: {fileID: 7045266442428663344}
+  - component: {fileID: 5127068835097112911}
+  - component: {fileID: 2413645456354147992}
+  - component: {fileID: 6408291446502828869}
   m_Layer: 0
-  m_Name: Prop_Tree_Log_02
+  m_Name: Prop_Tree_Log_02 1
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5562527326212211998
+--- !u!4 &7973669171405975254
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2846391977242657815}
+  m_GameObject: {fileID: 4384725237226173557}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.204807, y: 0.51, z: 0}
+  m_LocalPosition: {x: 317.99652, y: 0.5028235, z: -278.10718}
   m_LocalScale: {x: 1.3926, y: 1.4693, z: 1.727138}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1206835993508451917
+--- !u!33 &533693159348956765
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2846391977242657815}
+  m_GameObject: {fileID: 4384725237226173557}
   m_Mesh: {fileID: 4300000, guid: 66682d92283698d4ab87d966968fcccb, type: 3}
---- !u!23 &8853145110968953442
+--- !u!23 &7045266442428663344
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2846391977242657815}
+  m_GameObject: {fileID: 4384725237226173557}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -86,13 +86,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &6975672405506226994
+--- !u!54 &5127068835097112911
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2846391977242657815}
+  m_GameObject: {fileID: 4384725237226173557}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -113,13 +113,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 1
---- !u!65 &609676407344231264
+--- !u!65 &2413645456354147992
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2846391977242657815}
+  m_GameObject: {fileID: 4384725237226173557}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -134,13 +134,13 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5549975, y: 0.6762928, z: 2.3428588}
   m_Center: {x: 0.024699053, y: -0.0040732613, z: 0.20232236}
---- !u!114 &7892422367238497293
+--- !u!114 &6408291446502828869
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2846391977242657815}
+  m_GameObject: {fileID: 4384725237226173557}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 659f32e3bcfdd4241ac077d6ca544332, type: 3}
@@ -148,4 +148,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   boostSpeed: 12
+  currentSpeed: 0
   leftBound: -5
+  gm: {fileID: 0}

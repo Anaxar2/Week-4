@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -12,10 +9,12 @@ using UnityEditor;
 public class GameManager : MonoBehaviour
 {
     [Header("Health")]
-    public int healthPoints;
-    public TextMeshProUGUI healthText;
-    [SerializeField] Image totalHealthBar;
-    [SerializeField] Image currentHealthBar;
+    public float healthPoints;
+    readonly Image currentHealthBar;
+
+    [Header("Player")]
+    public Transform player; // Reference to the player object
+    public RectTransform healthBarUI; // Reference to the health bar RectTransform
 
     [Header("Timer")]
     public int timer;
@@ -28,16 +27,15 @@ public class GameManager : MonoBehaviour
     public Button restartButton;
     public Button quitButton;
 
-    private void Start()
+    public void Update()                  // Update is called once per frame
     {
-        totalHealthBar.fillAmount = healthPoints / 10;
-    }
-
-    void Update()                  // Update is called once per frame
-    {
+        HealthTracker();
         Timer();
-        currentHealthBar.fillAmount =healthPoints / 10;
-        //healthText.text = "Health:" + healthPoints.ToString();
+        FollowPlayer();
+    }
+    void HealthTracker()
+    {
+        currentHealthBar.fillAmount = healthPoints / 10;
     }
     public void Timer()
     {
@@ -50,17 +48,18 @@ public class GameManager : MonoBehaviour
             currentTime += Time.deltaTime;
         }
     }
+    void FollowPlayer()
+    {
+        // Set the health bar position above the player
+        Vector3 offset = new (4, 6, 0); // Adjust offset as needed
+        healthBarUI.position = Camera.main.WorldToScreenPoint(player.position + offset);
+    }
     public void RestartGame()
     {
         SceneManager.LoadScene(1);
     }
     public void QuitGame()
     {
-#if UNITY_EDITOR
-        EditorApplication.ExitPlaymode();
-#else
         Application.Quit();
-    }
-#endif
     }
 }

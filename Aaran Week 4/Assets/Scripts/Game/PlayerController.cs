@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(RotationSpeed * Time.deltaTime * Vector3.up, Space.World);      // Midair Rotation Mechanic on Y axis. (RIGHT)
         }
     }
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Ring"))
         {
