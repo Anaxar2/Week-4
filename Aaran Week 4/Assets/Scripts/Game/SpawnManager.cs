@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
@@ -40,7 +38,7 @@ public class SpawnManager : MonoBehaviour
     {
         if (playerController.gm.gameOver == false)
         {
-            Vector3 randomSpawnPos = new (Random.Range(30, 40), Random.Range(8,13), 0);
+            Vector3 randomSpawnPos = new (Random.Range(30, 41), Random.Range(8,13), 0);
             Instantiate(ring,randomSpawnPos, ring.transform.rotation);  
         }
     }

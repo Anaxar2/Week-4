@@ -41,7 +41,7 @@ public class MoveLeft : MonoBehaviour
 
         if (gm.gameOver == false && countUp >= 10)
         {
-            speed = speed + 2;
+            speed += 2;
             countUp = 0;
         }
     }

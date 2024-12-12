@@ -1,26 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using UnityEditor.Rendering;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header ("General")]
+    [Header("General")]
     private Rigidbody rb;
     private Animator playerAnim;
     public GameManager gm;
 
-    [Header ("Jump")]
+    [Header("Jump")]
     public float jumpForce = 5;
     public float gravityModifier;
     public int jumpsLeft = 2;
     bool isOnGround = true;
-    
-    [Header ("Rotation Mid-air")]
+
+    [Header("Rotation Mid-air")]
     public float RotationSpeed;
 
-    [Header ("Particle Systems")]
+    [Header("Particle Systems")]
     public ParticleSystem explosion;
     public ParticleSystem dirt;
 
@@ -60,7 +58,7 @@ public class PlayerController : MonoBehaviour
             _as.PlayOneShot(jumpSound, 1.0f);                           // Plays a Random jump sound from the array. 
         }
     }
-    private void Frontflip() 
+    private void Frontflip()
     {
         if (Input.GetKey(KeyCode.RightArrow) && isOnGround == false)                         // Trigers Frontflip Mechanic on key hold.
         {
@@ -93,8 +91,9 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Ring"))
         {
             Destroy(other.gameObject);
+            gm.rings += 1;
+            gm.score += 1;
             //_as.PlayOneShot(somesound, 1.0f);
-            // increase a number by 1
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -106,22 +105,32 @@ public class PlayerController : MonoBehaviour
             dirt.Play();                                                 // Plays dirt particle effect.
             playerAnim.SetBool("Grounded", true);                        // Sets Grounded Animation to true.
         }
-        if (collision.gameObject.CompareTag("Obstacle"))                 // Checks collisions with obstacles
+        if (collision.gameObject.CompareTag("Obstacle") && gm.rings == 0) // Checks collisions with obstacles and rings are equal too 0.
         {
             gm.healthPoints -= 1;                                        // Reduces health by 1 when hit by obstacle.
             explosion.Play();                                            // Plays explosion particle effect when hitting Obstacle.
             dirt.Stop();                                                 // Stops dirt particle effect when hitting Obstacle.
             int RandomCrashSounds = Random.Range(0, crashSounds.Length); // Array of lenth x Crash sounds.
-            _as.PlayOneShot(crashSounds[RandomCrashSounds], 1.0f);       // Plays a Random Crash sound from the array. 
+            _as.PlayOneShot(crashSounds[RandomCrashSounds], 1.0f);       // Plays a Random Crash sound from the array.
         }
-        else if (gm.healthPoints == 0)                                   // If health equals 0. Run code below.
+        else if (collision.gameObject.CompareTag("Obstacle") && gm.rings > 0) // Checks collisions with obstacles and rings are greater than 0.
+        {
+            gm.rings -= Random.Range(1, 4);                              // Reduces Rings by a random amount (1,2,3)
+            if (gm.rings < 0)
+            {
+                gm.rings = 0;
+            }
+        }
+        if (gm.healthPoints == 0)                                        // If health equals 0. Run code below.
         {
             gm.gameOver = true;                                          // Checks if Game Over is true.
             dirt.Stop();                                                 // Stops dirt particle effect when hitting Obstacle.
+          //_as.Stop();                                                  // Stops Audio.
             playerAnim.SetBool("Death_b", true);                         // Sets death is true.
             playerAnim.SetInteger("DeathType_int", 1);                   // Plays Death animation.
             gm.gameOverPanel.gameObject.SetActive(true);                 // Game Over UI is Set.
-            Physics.gravity /= gravityModifier;                          // 
+            gm.TotalScore();                                             // Adds up total score
+            Physics.gravity /= gravityModifier;                          //
         }
     }
 }
