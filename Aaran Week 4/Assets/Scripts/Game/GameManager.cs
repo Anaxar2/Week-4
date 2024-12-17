@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
     public Image currentHealthBar;
 
     [Header("Player")]
-    public Transform player; // Reference to the player object
-    public RectTransform healthBarUI; // Reference to the health bar RectTransform
+    public Transform player;            // Reference to the player object
+    public RectTransform healthBarUI;   // Reference to the health bar RectTransform
 
     [Header("Timer")]
     public TextMeshProUGUI timerText;
@@ -23,9 +23,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Score")]
     public int score;
-    public float total;
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI totalText;
 
     [Header("Game Over")]
     public bool gameOver;
@@ -35,16 +33,11 @@ public class GameManager : MonoBehaviour
 
     public void Update()                  // Update is called once per frame
     {
-        ScoreTracker();
         RingTracker();
         HealthTracker();
         Timer();
         FollowPlayer();
         TotalScore();
-    }
-    void ScoreTracker()
-    {
-        scoreText.text = "Score: " + score;
     }
     void RingTracker()
     {
@@ -74,9 +67,9 @@ public class GameManager : MonoBehaviour
     public void TotalScore()
     {
         float normalizedTime = currentTime / 60f; // Normalize time to minutes
-        total = score * normalizedTime;
-        totalText.text = "Total: " + Mathf.RoundToInt(total);
-    }
+        score = (int)(normalizedTime * rings);
+        scoreText.text = "Total: " + Mathf.RoundToInt(score);
+    }  
     public void RestartGame()
     {
         SceneManager.LoadScene(1);

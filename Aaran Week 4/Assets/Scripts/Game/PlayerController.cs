@@ -1,13 +1,15 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
-
+using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     [Header("General")]
     private Rigidbody rb;
     private Animator playerAnim;
     public GameManager gm;
+    public SpawnManager sm;
+
+    [Header("PowerUps")]
+    public bool hasShield = false;
 
     [Header("Jump")]
     public float jumpForce = 5;
@@ -35,7 +37,6 @@ public class PlayerController : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         _as = GetComponent<AudioSource>();
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -88,12 +89,20 @@ public class PlayerController : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Ring"))
+        switch (other.gameObject.tag)
         {
-            Destroy(other.gameObject);
-            gm.rings += 1;
-            gm.score += 1;
-            //_as.PlayOneShot(somesound, 1.0f);
+            case "Ring":
+                Destroy(other.gameObject);
+                gm.rings += 1;
+                //_as.PlayOneShot(somesound, 1.0f);
+                break;
+
+            case "Shield":
+                Destroy(other.gameObject);
+                hasShield = true;
+                transform.localScale = new Vector3(1.35f, 1.35f, 1.35f);
+                CancelInvoke(nameof(sm.SpawnPowerUps));
+                break;
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -105,7 +114,7 @@ public class PlayerController : MonoBehaviour
             dirt.Play();                                                 // Plays dirt particle effect.
             playerAnim.SetBool("Grounded", true);                        // Sets Grounded Animation to true.
         }
-        if (collision.gameObject.CompareTag("Obstacle") && gm.rings == 0) // Checks collisions with obstacles and rings are equal too 0.
+        if (collision.gameObject.CompareTag("Obstacle") && hasShield == false) // Checks collisions with obstacles and has shield is false
         {
             gm.healthPoints -= 1;                                        // Reduces health by 1 when hit by obstacle.
             explosion.Play();                                            // Plays explosion particle effect when hitting Obstacle.
@@ -113,13 +122,10 @@ public class PlayerController : MonoBehaviour
             int RandomCrashSounds = Random.Range(0, crashSounds.Length); // Array of lenth x Crash sounds.
             _as.PlayOneShot(crashSounds[RandomCrashSounds], 1.0f);       // Plays a Random Crash sound from the array.
         }
-        else if (collision.gameObject.CompareTag("Obstacle") && gm.rings > 0) // Checks collisions with obstacles and rings are greater than 0.
+        else if (collision.gameObject.CompareTag("Obstacle") && hasShield == true) // Checks collisions with obstacles and has shield is true.
         {
-            gm.rings -= Random.Range(1, 4);                              // Reduces Rings by a random amount (1,2,3)
-            if (gm.rings < 0)
-            {
-                gm.rings = 0;
-            }
+            hasShield = false;                                           // Has shield is false
+            transform.localScale = Vector3.one;
         }
         if (gm.healthPoints == 0)                                        // If health equals 0. Run code below.
         {
@@ -128,7 +134,7 @@ public class PlayerController : MonoBehaviour
           //_as.Stop();                                                  // Stops Audio.
             playerAnim.SetBool("Death_b", true);                         // Sets death is true.
             playerAnim.SetInteger("DeathType_int", 1);                   // Plays Death animation.
-            gm.gameOverPanel.gameObject.SetActive(true);                 // Game Over UI is Set.
+            gm.gameOverPanel.SetActive(true);                            // Game Over UI is Set.
             gm.TotalScore();                                             // Adds up total score
             Physics.gravity /= gravityModifier;                          //
         }
